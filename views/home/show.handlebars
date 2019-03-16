@@ -1,0 +1,57 @@
+<div class="row">
+
+      <!-- Blog Entries Column -->
+      
+      <div class="col-md-12">
+  
+        <h1>{{post.title}}</h1>
+        <p><i>By {{post.user.firstName}}</i></p>
+        <!-- Blog Post -->
+        <img class="card-img-top" src="/uploads/{{post.file}}" alt="Card image cap">
+          <div class="card-body">
+           
+            <p class="card-text">{{post.body}}</p>
+            
+          </div>
+          <div class="card-footer text-muted">
+            {{post.date}}
+           
+          </div>
+        </div>
+        {{#if user}}
+        {{#if post.allowComments}}
+       <div class="card col-md-12 my-4">
+         <h5 class="card-header">Leave a comment</h5>
+         <div class="card-body">
+      <form action="/admin/comments" method="post">
+         <div class="form-group">
+         <input type="hidden" name="id" value="{{post.id}}">
+           <textarea name="body" id="body" cols="10" rows="5" class="form-control"></textarea>
+         </div>
+         <button type="submit" class="btn btn-primary">Submit</button>
+         </form>
+         </div>
+         
+       </div>
+{{else}}
+
+<h2>Comments not allowed in this post</h2>
+<hr>
+   {{/if}}
+   {{else}}
+   You need to login to comment <a href="/login"> Login</a>
+  
+   {{/if}}
+ 
+ {{#each post.comments}}
+   <div class="card mb-4">
+     <div class="card-body">
+       <br>
+<h5 class="mt-0">{{user.firstName}}</h5>
+<p>{{body}}</p>
+     </div>
+
+   </div>
+   {{/each}}
+       </div>
+
